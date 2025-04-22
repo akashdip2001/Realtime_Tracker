@@ -126,7 +126,7 @@ https://github.com/user-attachments/assets/9ff3b1a1-7929-4381-890e-8a1058d3c269
 
 ---
 
-<img align="right" alt="Only secure origins are allowed" width="300" src="">
+<img align="right" alt="Only secure origins are allowed" width="300" src="public/images/Only secure origins are allowed.jpg">
 
 > **"Location error: Only secure origins are allowed..."**
 
