@@ -123,3 +123,56 @@ app.listen(3000, "0.0.0.0", () => {
 https://github.com/user-attachments/assets/9ff3b1a1-7929-4381-890e-8a1058d3c269
 
 [Watch the video of updated features in 22-04-2025](./public/images/videos/updated%20features%2022-04-2025.mp4)
+
+---
+
+<img align="right" alt="Only secure origins are allowed" width="300" src="">
+
+> **"Location error: Only secure origins are allowed..."**
+
+...happens because **modern browsers block geolocation on insecure origins** (like `http://192.168.x.x`) **unless it's**:
+- **Served over HTTPS**
+- **Or running on `localhost`**
+
+---
+
+### 🛠️ 🔒 Quick Workarounds (For Development Only)
+
+#### ✅ Option 1: Use `localhost` on the target device
+If you're testing on a **mobile device**, access your server using:
+```
+http://localhost:3000
+```
+This only works if the server is running on the mobile device **itself**.
+
+---
+
+#### ✅ Option 2: Use HTTPS via a tunneling service
+
+Use [**ngrok**](https://ngrok.com/) or [**localtunnel**](https://github.com/localtunnel/localtunnel) to expose your local dev server over HTTPS.
+
+**Ngrok example:**
+
+1. Run your local server:
+   ```bash
+   npm start
+   ```
+
+2. In another terminal, run:
+   ```bash
+   ngrok http 3000
+   ```
+
+3. Ngrok gives you an `https://` URL → open that on your mobile and geolocation will work fine.
+
+---
+
+#### ✅ Option 3: Enable insecure origins in **Chrome (only for testing)**
+
+If you're testing on **Chrome** on **Android**, launch with this flag **(PC only)**:
+
+```bash
+chrome.exe --unsafely-treat-insecure-origin-as-secure="http://192.168.0.214:3000" --user-data-dir=/test-profile --disable-web-security
+```
+
+⚠️ **Only for dev/debug use** – never in production!
