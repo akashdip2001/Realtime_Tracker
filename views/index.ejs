@@ -1,145 +1,42 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Real-Time Tracking App</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="/css/style.css" />
-  </head>
-  <body>
-    <div id="map"></div>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Real-Time Tracking App</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+</head>
+<body>
+  <nav class="map-buttons" aria-label="Map control buttons">
+    <button class="map-button" onclick="toggleDarkMode()">🌓 Light/Dark</button>
+    <button class="map-button" onclick="goToCurrentLocation()">📍 My Location</button>
+    <button class="map-button" onclick="toggleContributorsPopup()">👥 Contributors</button>
+  </nav>
 
-    <div class="map-buttons">
-      <button class="map-button" onclick="toggleDarkMode()">
-        🌓 Light/Dark
-      </button>
-      <button class="map-button" onclick="goToCurrentLocation()">
-        📍 My Location
-      </button>
-      <button class="map-button" onclick="toggleContributorsPopup()">
-        👥 Contributors
-      </button>
-    </div>
+  <div id="map"></div>
 
-    <div id="contributorsPopup">
-      <button id="closePopupBtn" onclick="toggleContributorsPopup()">
-        &times;
-      </button>
-      <h3>Contributors</h3>
-      <p>
-        <strong>Payal Kumari</strong><br />Creator of the Project in 2024<br /><a
-          href="https://github.com/PayalKumari10/Realtime_Tracker"
-          target="_blank"
-          ><i class="fab fa-github"></i> GitHub</a
-        >
-      </p>
-      <hr />
-      <p>
-        <strong>Akashdip Mahapatra</strong> <br />UI Updates & Enhancements in
-        2025<br />
-        <a href="https://github.com/akashdip2001" target="_blank"
-          ><i class="fab fa-github"></i> GitHub</a
-        >
-        and
-        <a href="https://www.linkedin.com/in/akashdip2001/" target="_blank"
-          ><i class="fab fa-linkedin">&nbsp;</i>LinkedIn</a
-        >
-        <details>
-          <summary>📌 Update for Dark Mode</summary>
-          <p>
-            Added a dark mode toggle button and improved the UI for better user
-            experience.
-          </p>
-        </details>
-        <details>
-          <summary>📌 Jump to user's location</summary>
-          <p>
-            Added a button to jump to the user's current location on the map.
-            This feature uses the Geolocation API to get the user's location and
-            display it on the map.
-          </p>
-        </details>
-        <details>
-          <summary>📌 Update for local network access (LAN)</summary>
-          <ul>
-            <li>
-              Added a feature to access the map on local network (LAN) using the
-              IP address of the server. This allows users to access the map from
-              any device connected to the same local network.
-            </li>
-            <li>
-              Prints your LAN IP address automatically on the Terminal when you
-              run the server. This makes it easier for users to find the IP
-              address they need to access the map on their local network.
-            </li>
-          </ul>
-        </details>
-      </p>
-    </div>
+  <aside id="contributorsPopup" role="dialog" aria-hidden="true">
+    <button id="closePopupBtn" onclick="toggleContributorsPopup()" aria-label="Close contributors popup">&times;</button>
+    <h3>Contributors</h3>
+    <p><strong>Payal Kumari</strong><br />Creator of the Project in 2024<br />
+      <a href="https://github.com/PayalKumari10/Realtime_Tracker" target="_blank">GitHub</a>
+    </p>
+    <hr />
+    <p><strong>Akashdip Mahapatra</strong><br />UI Updates & Enhancements in 2025<br />
+      <a href="https://github.com/akashdip2001" target="_blank">GitHub</a> and 
+      <a href="https://www.linkedin.com/in/akashdip2001/" target="_blank">LinkedIn</a>
+      <details><summary>📌 Update for Dark Mode</summary>
+        <p>Added a dark mode toggle button and improved the UI for better user experience.</p></details>
+      <details><summary>📌 Jump to user's location</summary>
+        <p>Uses Geolocation API to center the map on the user's location.</p></details>
+      <details><summary>📌 Local Network Access</summary>
+        <ul><li>Added LAN support using server IP.</li><li>Automatically prints LAN IP on server start.</li></ul></details>
+    </p>
+  </aside>
 
-    <script>
-      const map = L.map("map").setView([22.9485, 88.4243], 15); // AOT area
-
-      const tileLight = L.tileLayer(
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        {
-          maxZoom: 19,
-          attribution: "",
-        }
-      );
-
-      const tileDark = L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-        {
-          maxZoom: 19,
-          attribution: "",
-        }
-      );
-
-      tileLight.addTo(map);
-
-      let darkMode = false;
-
-      function toggleDarkMode() {
-        if (!darkMode) {
-          map.removeLayer(tileLight);
-          tileDark.addTo(map);
-        } else {
-          map.removeLayer(tileDark);
-          tileLight.addTo(map);
-        }
-        darkMode = !darkMode;
-        document.body.classList.toggle("dark-mode");
-      }
-
-      function goToCurrentLocation() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition((position) => {
-            const latlng = [
-              position.coords.latitude,
-              position.coords.longitude,
-            ];
-            map.setView(latlng, 18, { animate: true });
-            L.marker(latlng).addTo(map).bindPopup("You're here").openPopup();
-          });
-        } else {
-          alert("Geolocation is not supported by your browser.");
-        }
-      }
-
-      function toggleContributorsPopup() {
-        const popup = document.getElementById("contributorsPopup");
-        popup.style.display =
-          popup.style.display === "block" ? "none" : "block";
-      }
-    </script>
-  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="/js/script.js"></script>
+</body>
 </html>
