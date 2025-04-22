@@ -176,3 +176,99 @@ chrome.exe --unsafely-treat-insecure-origin-as-secure="http://192.168.0.214:3000
 ```
 
 ⚠️ **Only for dev/debug use** – never in production!
+
+---
+
+## ✅ Using `localtunnel`
+
+<p align="center">
+  <img src="public/images/localtunnel 01.png" alt="Image 1" width="58%" style="margin-right: 10px;"/>
+  <img src="public/images/ localtunnel 02.jpg" alt="Image 2" width="31%" style="margin-right: 10px;"/>
+</p>
+
+Perfect choice! 🙌 LocalTunnel is lightweight and easy to set up for exposing your local server with an HTTPS URL.
+
+---
+
+### 🌐 Step-by-Step: Set Up **LocalTunnel**
+
+Great progress! You're almost there — just a quick tweak needed.
+
+The error you're seeing:
+```
+npm ERR! Missing script: "start"
+```
+
+This means your project’s `package.json` file doesn’t have a `"start"` script defined.
+
+---
+
+### ✅ How to Fix It
+
+#### 🛠 Step 1: Open your `package.json`
+
+Inside your project folder (`Realtime_Tracker`), open `package.json`, and look for the `"scripts"` section.
+
+If there’s no `"start"` script, add one like this:
+
+```json
+"scripts": {
+  "start": "node app.js"
+}
+```
+
+<img src="public/images/server start script.png">
+
+> 🔁 Replace `app.js` with whatever your main file is. Could be `server.js`, `index.js`, etc.
+
+---
+
+Now go back to terminal and run:
+
+#### ✅ Step 1: Install LocalTunnel globally
+
+Open your terminal and run:
+
+```bash
+npm install -g localtunnel
+```
+
+---
+
+#### ✅ Step 2: Start your development server
+
+Make sure your app (e.g., the map tracker) is running locally:
+
+```bash
+npm start
+```
+
+Assuming it's on the default port **3000**, or whatever port you use.
+
+---
+
+#### ✅ Step 3: Start LocalTunnel
+
+Run this in a **separate terminal window**:
+
+```bash
+lt --port 3000
+```
+or
+```bash
+lt --port 3000 --subdomain akashdip2001
+```
+
+You’ll see something like:
+
+```
+your url is: https://akashdip2001.loca.lt
+```
+
+---
+
+#### ✅ Step 4: Open the HTTPS URL on your phone or other devices
+
+Use **that secure URL** (`https://akashdip2001.loca.lt`) on your mobile browser — now geolocation will work because it's served over HTTPS ✅
+
+---
