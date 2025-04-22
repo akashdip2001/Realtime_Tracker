@@ -20,7 +20,7 @@ A real-time device tracking application built with Node.js, Express, Socket.IO, 
 
 ## Getting Started
 
-### Prerequisites
+### 🔵 Prerequisites
 
 - Node.js installed on your machine.
 - npm (Node package manager).
@@ -33,4 +33,73 @@ To run the application with automatic reloading, use `nodemon`:
 
    Start the application:
    npx nodemon app.js
+
+### 🟢 **If you face any errore to Run** (For New Systems)
+
+#### 1. **Install Prerequisites**
+Make sure you have the following installed:
+- [Node.js](https://nodejs.org/) (LTS version recommended)
+- npm (comes with Node.js)
+
+To verify:
+```bash
+node -v
+npm -v
+```
+
+---
+
+#### 2. **Clone the Project**
+```bash
+git clone https://github.com/PayalKumari10/Realtime_Tracker.git
+cd Realtime_Tracker
+```
+
+---
+
+#### 3. **Set Your Git Identity (Optional, for commits)**
+```bash
+git config user.name "your_github_username"
+git config user.email "your_email@example.com"
+```
+
+---
+
+#### 4. **Install Project Dependencies**
+```bash
+npm install
+```
+
+---
+
+#### 5. **(Optional) Install nodemon Globally for Auto-Restart**
+```bash
+npm install -g nodemon
+```
+
+---
+
+#### 6. **Start the App**
+```bash
+npx nodemon app.js
+```
+
+If `nodemon` isn't installed, you can just run:
+```bash
+node app.js
+```
+
+---
+
+#### 7. **Open the App**
+Open your browser and go to:
+```
+http://localhost:3000
+```
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/59077747-a871-4cc6-976c-17a61a92199e" alt="Image 1" width="46%" style="margin-right: 10px;"/>
+  <img src="https://github.com/user-attachments/assets/590a796b-40da-485e-9f6b-51319d1233d7" alt="Image 2" width="46%" style="margin-right: 10px;"/>
+</p>
+
+---
 
