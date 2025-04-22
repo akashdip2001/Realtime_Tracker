@@ -1,42 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Real-Time Tracking App</title>
-  <link rel="stylesheet" href="/css/style.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
-</head>
-<body>
-  <nav class="map-buttons" aria-label="Map control buttons">
-    <button class="map-button" onclick="toggleDarkMode()">🌓 Light/Dark</button>
-    <button class="map-button" onclick="goToCurrentLocation()">📍 My Location</button>
-    <button class="map-button" onclick="toggleContributorsPopup()">👥 Contributors</button>
-  </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real-Time Tracking App</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav class="map-buttons" aria-label="Map control buttons">
+      <button class="map-button" onclick="toggleDarkMode()">
+        🌓 Light/Dark
+      </button>
+      <button class="map-button" onclick="goToCurrentLocation()">
+        📍 My Location
+      </button>
+      <button class="map-button" onclick="toggleContributorsPopup()">
+        👥 Contributors
+      </button>
+    </nav>
 
-  <div id="map"></div>
+    <div id="map"></div>
 
-  <aside id="contributorsPopup" role="dialog" aria-hidden="true">
-    <button id="closePopupBtn" onclick="toggleContributorsPopup()" aria-label="Close contributors popup">&times;</button>
-    <h3>Contributors</h3>
-    <p><strong>Payal Kumari</strong><br />Creator of the Project in 2024<br />
-      <a href="https://github.com/PayalKumari10/Realtime_Tracker" target="_blank">GitHub</a>
-    </p>
-    <hr />
-    <p><strong>Akashdip Mahapatra</strong><br />UI Updates & Enhancements in 2025<br />
-      <a href="https://github.com/akashdip2001" target="_blank">GitHub</a> and 
-      <a href="https://www.linkedin.com/in/akashdip2001/" target="_blank">LinkedIn</a>
-      <details><summary>📌 Update for Dark Mode</summary>
-        <p>Added a dark mode toggle button and improved the UI for better user experience.</p></details>
-      <details><summary>📌 Jump to user's location</summary>
-        <p>Uses Geolocation API to center the map on the user's location.</p></details>
-      <details><summary>📌 Local Network Access</summary>
-        <ul><li>Added LAN support using server IP.</li><li>Automatically prints LAN IP on server start.</li></ul></details>
-    </p>
-  </aside>
+    <aside id="contributorsPopup" role="dialog" aria-hidden="true">
+      <button
+        id="closePopupBtn"
+        onclick="toggleContributorsPopup()"
+        aria-label="Close contributors popup"
+      >
+        &times;
+      </button>
+      <h3>Contributors</h3>
+      <p>
+        <strong>Payal Kumari</strong><br />Creator of the Project in 2024<br />
+        <a
+          class="github"
+          href="https://github.com/PayalKumari10/Realtime_Tracker"
+          target="_blank"
+        >
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </p>
+      <hr />
+      <p>
+        <strong>Akashdip Mahapatra</strong><br />UI Updates & Enhancements in
+        2025<br />
+        <a
+          class="github"
+          href="https://github.com/akashdip2001"
+          target="_blank"
+        >
+          <i class="fab fa-github"></i> GitHub
+        </a>
+        and
+        <a
+          class="linkedin"
+          href="https://www.linkedin.com/in/akashdip2001/"
+          target="_blank"
+        >
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <details>
+          <summary>📌 Update for Dark Mode</summary>
+          <p>
+            Added a dark mode toggle button and improved the UI for better user
+            experience.
+          </p>
+        </details>
+        <details>
+          <summary>📌 Jump to user's location</summary>
+          <p>Uses Geolocation API to center the map on the user's location.</p>
+        </details>
+        <details>
+          <summary>📌 Local Network Access</summary>
+          <ul>
+            <li>Added LAN support using server IP.</li>
+            <li>Automatically prints LAN IP on server start.</li>
+          </ul>
+        </details>
+      </p>
+    </aside>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-  <script src="/js/script.js"></script>
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="/js/script.js"></script>
+  </body>
 </html>
