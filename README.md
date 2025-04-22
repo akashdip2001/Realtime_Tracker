@@ -102,4 +102,19 @@ http://localhost:3000
 </p>
 
 ---
+---
 
+## Update for `local network access`
+
+```js
+app.listen(3000, "0.0.0.0", () => {
+  console.log("Server is running on http://<your_ip>:3000");
+});
+```
+
+#### But the Browser default feature Block the `Location` because of `http` (not Secure)
+
+<p align="center">
+  <img src="public/images/IMG20250422145001.jpg" alt="Image 1" width="46%" style="margin-right: 10px;"/>
+  <img src="public/images/IMG20250422145012.jpg" alt="Image 2" width="46%" style="margin-right: 10px;"/>
+</p>
