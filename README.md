@@ -111,6 +111,7 @@ app.listen(3000, "0.0.0.0", () => {
   console.log("Server is running on http://<your_ip>:3000");
 });
 ```
+<img src="public/images/IP print for LAN access.png">
 
 #### But the Browser default feature Block the `Location` because of `http` (not Secure)
 
