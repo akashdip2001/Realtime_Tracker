@@ -1,26 +1,238 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+  <head>
     <title>Real-Time Tracking App</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw=="
-     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    </head>
-
-<body>
-    <div class="header">StreetMap by Payal Kumari</div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      html,
+      body,
+      #map {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .map-buttons {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1000;
+      }
+      .map-button {
+        background: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 14px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .map-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      }
+      #contributorsPopup {
+        position: absolute;
+        top: 80px;
+        right: 20px;
+        background: white;
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 1001;
+        width: 260px;
+        font-size: 14px;
+        animation: fadeIn 0.3s ease-in-out;
+      }
+      #contributorsPopup h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 16px;
+        text-align: center;
+      }
+      #contributorsPopup a {
+        color: #007bff;
+        text-decoration: none;
+      }
+      #contributorsPopup a:hover {
+        text-decoration: underline;
+      }
+      #closePopupBtn {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        color: #999;
+      }
+      #closePopupBtn:hover {
+        color: #000;
+      }
+      body.dark-mode .map-button,
+      body.dark-mode #contributorsPopup {
+        background: #2c2c2c;
+        color: white;
+        box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+      }
+      body.dark-mode .map-button:hover {
+        box-shadow: 0 6px 12px rgba(255, 255, 255, 0.4);
+      }
+      body.dark-mode #contributorsPopup a {
+        color: #66b0ff;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
     <div id="map"></div>
-    <div class="footer">© 2024 Payal Kumari</div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" 
-    integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
-    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO"
-     crossorigin="anonymous"></script>
-    
-    <script src="/js/script.js"></script>
+    <div class="map-buttons">
+      <button class="map-button" onclick="toggleDarkMode()">
+        🌓 Light/Dark
+      </button>
+      <button class="map-button" onclick="goToCurrentLocation()">
+        📍 My Location
+      </button>
+      <button class="map-button" onclick="toggleContributorsPopup()">
+        👥 Contributors
+      </button>
+    </div>
 
-</body>
+    <div id="contributorsPopup">
+      <button id="closePopupBtn" onclick="toggleContributorsPopup()">
+        &times;
+      </button>
+      <h3>Contributors</h3>
+      <p>
+        <strong>Payal Kumari</strong><br />Creator of the Project in 2024<br /><a
+          href="https://github.com/PayalKumari10/Realtime_Tracker"
+          target="_blank"
+          ><i class="fab fa-github"></i> GitHub</a
+        >
+      </p>
+      <hr />
+      <p>
+        <strong>Akashdip Mahapatra</strong> <br />UI Updates & Enhancements in
+        2025<br />
+        <a href="https://github.com/akashdip2001" target="_blank"
+          ><i class="fab fa-github"></i> GitHub</a
+        >
+        and
+        <a href="https://www.linkedin.com/in/akashdip2001/" target="_blank"
+          ><i class="fab fa-linkedin">&nbsp;</i>LinkedIn</a
+        >
+        <details>
+          <summary>📌 Update for Dark Mode</summary>
+          <p>
+            Added a dark mode toggle button and improved the UI for better user
+            experience.
+          </p>
+        </details>
+        <details>
+          <summary>📌 Jump to user's location</summary>
+          <p>
+            Added a button to jump to the user's current location on the map.
+            This feature uses the Geolocation API to get the user's location and
+            display it on the map.
+          </p>
+        </details>
+        <details>
+          <summary>📌 Update for local network access (LAN)</summary>
+          <ul>
+            <li>
+              Added a feature to access the map on local network (LAN) using the
+              IP address of the server. This allows users to access the map from
+              any device connected to the same local network.
+            </li>
+            <li>
+              Prints your LAN IP address automatically on the Terminal when you
+              run the server. This makes it easier for users to find the IP
+              address they need to access the map on their local network.
+            </li>
+          </ul>
+        </details>
+      </p>
+    </div>
+
+    <script>
+      const map = L.map("map").setView([22.9485, 88.4243], 15); // AOT area
+
+      const tileLight = L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+          maxZoom: 19,
+          attribution: "",
+        }
+      );
+
+      const tileDark = L.tileLayer(
+        "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+        {
+          maxZoom: 19,
+          attribution: "",
+        }
+      );
+
+      tileLight.addTo(map);
+
+      let darkMode = false;
+
+      function toggleDarkMode() {
+        if (!darkMode) {
+          map.removeLayer(tileLight);
+          tileDark.addTo(map);
+        } else {
+          map.removeLayer(tileDark);
+          tileLight.addTo(map);
+        }
+        darkMode = !darkMode;
+        document.body.classList.toggle("dark-mode");
+      }
+
+      function goToCurrentLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            const latlng = [
+              position.coords.latitude,
+              position.coords.longitude,
+            ];
+            map.setView(latlng, 18, { animate: true });
+            L.marker(latlng).addTo(map).bindPopup("You're here").openPopup();
+          });
+        } else {
+          alert("Geolocation is not supported by your browser.");
+        }
+      }
+
+      function toggleContributorsPopup() {
+        const popup = document.getElementById("contributorsPopup");
+        popup.style.display =
+          popup.style.display === "block" ? "none" : "block";
+      }
+    </script>
+  </body>
 </html>

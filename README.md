@@ -118,3 +118,5 @@ app.listen(3000, "0.0.0.0", () => {
   <img src="public/images/IMG20250422145001.jpg" alt="Image 1" width="46%" style="margin-right: 10px;"/>
   <img src="public/images/IMG20250422145012.jpg" alt="Image 2" width="46%" style="margin-right: 10px;"/>
 </p>
+
+[Watch the video of updated features in 22-04-2025](./public/images/videos/updated%20features%2022-04-2025.mp4)
