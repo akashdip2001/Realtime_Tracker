@@ -271,4 +271,5 @@ your url is: https://akashdip2001.loca.lt
 
 Use **that secure URL** (`https://akashdip2001.loca.lt`) on your mobile browser — now geolocation will work because it's served over HTTPS ✅
 
+> ⚠️ and the passward in you Hosting System's `current IP`
 ---
