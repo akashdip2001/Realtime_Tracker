@@ -1,3 +1,7 @@
+<img src="public/images/Title img 02.jpg">
+
+</br>
+
 # Realtime Device Tracker
 
 A real-time device tracking application built with Node.js, Express, Socket.IO, and Leaflet. This application allows users to track their devices' locations on a map in real-time using geolocation.
@@ -17,6 +21,11 @@ A real-time device tracking application built with Node.js, Express, Socket.IO, 
 - **Socket.IO**: Enables real-time bidirectional communication between clients and server.
 - **Leaflet**: Open-source JavaScript library for interactive maps.
 - **HTML/CSS**: For the frontend structure and styling.
+
+</br>
+
+<img src="public/images/Title img 03.png">
+</br>
 
 ## Getting Started
 
@@ -273,3 +282,5 @@ Use **that secure URL** (`https://akashdip2001.loca.lt`) on your mobile browser 
 
 > ⚠️ and the passward in you Hosting System's `current IP`
 ---
+
+<img src="public/images/Title img 01.jpg">
